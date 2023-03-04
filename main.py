@@ -1,5 +1,6 @@
 import requests
 from twilio.rest import Client
+import time
 
 cloud9 = {'nome': 'CLOUD9', 'id': '894316', 'preco_vendido': 137.76}
 furia = {'nome': 'FURIA', 'id': '894182', 'preco_vendido': 67.26}
@@ -14,7 +15,8 @@ big = {'nome': 'BIG', 'id': '894131', 'preco_vendido': 7.31}
 
 
 def busca_preco(item):
-    api = requests.get(f'https://buff.163.com/api/market/goods/buy_order?game=csgo&goods_id={item["id"]}&page_num=1').json()
+    api = requests.get(
+        f'https://buff.163.com/api/market/goods/buy_order?game=csgo&goods_id={item["id"]}&page_num=1').json()
 
     for price in api['data']['items']:
         return float(price['price'])
@@ -30,6 +32,7 @@ def calcula_preco(valor_atual, item):
         texto = f'{item["nome"]} - \nDeficit: -{round(100 - porcentagem, 1)}%, \nValor atual: {valor_atual}, \nValor vendido: {item["preco_vendido"]}'
         return texto
 
+
 mensagem = f'\n{calcula_preco(busca_preco(cloud9), cloud9)}\n\n' \
            f'{calcula_preco(busca_preco(furia), furia)}\n\n' \
            f'{calcula_preco(busca_preco(copenhagen), copenhagen)}\n\n' \
@@ -43,14 +46,10 @@ mensagem = f'\n{calcula_preco(busca_preco(cloud9), cloud9)}\n\n' \
 
 client = Client('AC9dd5dc6db412571cdf9f3e1706aa5ad3', 'b6e667dacfc8fbd9506142438f47cdb1')
 
+print(mensagem)
+
 message = client.messages.create(
-    body= mensagem,
-    from_= '+1 607 689 9924',
-    to= '+5551992736586'
+    body=mensagem,
+    from_='+1 607 689 9924',
+    to='+5551992736586'
 )
-
-
-
-
-
-
