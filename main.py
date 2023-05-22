@@ -9,7 +9,9 @@ def conexao_db():
         "database": "postgres",
         "user": "postgres",
         "password": "postgres"}
+
     conexao = db.connect(**parametros)
+
     return conexao
 
 
@@ -21,16 +23,35 @@ def busca_preco(item):
         return float(price['price'])
 
 
-conexao = conexao_db()
-query = conexao.cursor()
-query.execute('SELECT coditem FROM item')
-result = query.fetchall()
-query.close()
-conexao.close()
+def busca_tabela_item():
+    conexao = conexao_db()
+    query = conexao.cursor()
+
+    query.execute('SELECT coditem FROM item')
+    result = query.fetchall()
+
+    query.close()
+    conexao.close()
+
+    return result
+
+
+def busca_media_precos():
+    conexao = conexao_db()
+    query = conexao.cursor()
+
+    query.execute('SELECT coditem FROM item')
+    result = query.fetchall()
+
+    query.close()
+    conexao.close()
+
+    return result
+
 
 lista_itens = []
 
-for item in result:
+for item in busca_tabela_item():
     preco_item = (list(item)[0], busca_preco(list(item)[0]))
     lista_itens.append(preco_item)
 
@@ -47,6 +68,3 @@ for coditem, preco in lista_itens:
     conexao.commit()
     query.close()
     conexao.close()
-
-
-
