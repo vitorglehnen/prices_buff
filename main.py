@@ -1,6 +1,6 @@
 import requests
-import time
 import psycopg2 as db
+from datetime import datetime
 
 
 def conexao_db():
@@ -10,8 +10,7 @@ def conexao_db():
         "user": "postgres",
         "password": "postgres"}
     conexao = db.connect(**parametros)
-    cursor = conexao.cursor()
-    return cursor
+    return conexao
 
 
 def busca_preco(item):
@@ -22,13 +21,32 @@ def busca_preco(item):
         return float(price['price'])
 
 
-query = conexao_db()
+conexao = conexao_db()
+query = conexao.cursor()
 query.execute('SELECT coditem FROM item')
 result = query.fetchall()
+query.close()
+conexao.close()
+
+lista_itens = []
 
 for item in result:
-    lista_itens = list(item)
-    print(busca_preco(lista_itens[0]))
+    preco_item = (list(item)[0], busca_preco(list(item)[0]))
+    lista_itens.append(preco_item)
+
+for coditem, preco in lista_itens:
+    data_agora = str(datetime.now().date().strftime('%d/%m/%Y'))
+    hora_agora = str(datetime.now().time().strftime('%H:%M:%S'))
+
+    conexao = conexao_db()
+    query = conexao.cursor()
+
+    query.execute(f"INSERT INTO historicoprecos(controle, coditem, preco, datacons, horacons)"
+                  f"VALUES (nextval('gen_controle_histprecos'), {coditem}, {preco}, '{data_agora}', '{hora_agora}')")
+
+    conexao.commit()
+    query.close()
+    conexao.close()
 
 
 
