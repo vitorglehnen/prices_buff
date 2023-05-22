@@ -1,13 +1,10 @@
-import email.message
-
-import pandas as pd
-import requests
-import psycopg2 as db
 from datetime import datetime
 from tabulate import tabulate
+import psycopg2 as db
+import email.message
+import pandas as pd
+import requests
 import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 
 def conexao_db():
@@ -22,7 +19,7 @@ def conexao_db():
     return conexao
 
 
-def busca_preco(item):
+def busca_preco_api(item):
     api = requests.get(
         f'https://buff.163.com/api/market/goods/buy_order?game=csgo&goods_id={item}&page_num=1').json()
 
@@ -91,7 +88,7 @@ def envia_email(mensagem):
 lista_itens = []
 
 for item in busca_tabela_item():
-    preco_item = (list(item)[0], busca_preco(list(item)[0]))
+    preco_item = (list(item)[0], busca_preco_api(list(item)[0]))
     lista_itens.append(preco_item)
 
 for coditem, preco in lista_itens:
@@ -108,5 +105,12 @@ for coditem, preco in lista_itens:
     query.close()
     conexao.close()
 
-string = tabulate(busca_media_precos(), headers='keys', tablefmt='html', showindex=False)
+string = tabulate(busca_media_precos(),
+                  headers='keys',
+                  tablefmt='html',
+                  showindex=False,
+                  stralign='left',
+                  colalign=('left', ))
+
 envia_email(string)
+print("Email enviado!")
