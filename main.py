@@ -1,6 +1,13 @@
+import email.message
+
+import pandas as pd
 import requests
 import psycopg2 as db
 from datetime import datetime
+from tabulate import tabulate
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 def conexao_db():
@@ -40,13 +47,45 @@ def busca_media_precos():
     conexao = conexao_db()
     query = conexao.cursor()
 
-    query.execute('SELECT coditem FROM item')
+    query.execute('''SELECT i.descricao "Item",
+                    CONCAT('R$', ROUND(avg(hp.preco), 2)) "Média últimos 3 dias",
+                    CONCAT('R$', i.precovendido) "Preço vendido",
+                    CASE WHEN (i.precovendido > avg(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
+                    WHEN (i.precovendido < avg(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
+                    end as "Percentual"
+                    FROM historicoprecos hp
+                    INNER JOIN item i on i.coditem = hp.coditem
+                    WHERE hp.datacons BETWEEN (CURRENT_DATE - 3) and CURRENT_DATE
+                    GROUP BY hp.coditem, i.coditem
+                    ORDER BY ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)''')
+
     result = query.fetchall()
+    df = pd.DataFrame(result, columns=[desc[0] for desc in query.description])
 
     query.close()
     conexao.close()
 
-    return result
+    return df
+
+
+def envia_email(mensagem):
+    msg = email.message.Message()
+
+    msg['From'] = 'vitor.lehnen@universo.univates.br'
+    msg['To'] = 'vitorlehnen.jojo@gmail.com'
+    msg['Subject'] = 'Preços ' + str(datetime.now().date())
+
+    senha = 'ecbzattdneovdoqj'
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(mensagem)
+
+    smtp = smtplib.SMTP('smtp.gmail.com: 587')
+    smtp.starttls()
+
+    smtp.login(msg['From'], senha)
+    smtp.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
+
+    smtp.quit()
 
 
 lista_itens = []
@@ -68,3 +107,6 @@ for coditem, preco in lista_itens:
     conexao.commit()
     query.close()
     conexao.close()
+
+string = tabulate(busca_media_precos(), headers='keys', tablefmt='html', showindex=False)
+envia_email(string)
