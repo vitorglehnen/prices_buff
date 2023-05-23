@@ -45,6 +45,14 @@ def busca_media_precos():
     query = conexao.cursor()
 
     query.execute('''SELECT i.descricao "Item",
+                    CONCAT('R$', (SELECT max(hp3.preco)
+                    FROM historicoprecos hp3
+                    WHERE hp3.datacons = CURRENT_DATE - INTERVAL '1 day' and hp3.coditem = hp.coditem
+                    GROUP BY hp3.coditem)) "Preço ontem",
+                    CONCAT('R$', (SELECT max(hp2.preco)
+                    FROM historicoprecos hp2
+                    WHERE hp2.datacons = CURRENT_DATE and hp2.coditem = hp.coditem
+                    GROUP BY hp2.coditem)) "Preço hoje",
                     CONCAT('R$', ROUND(avg(hp.preco), 2)) "Média últimos 3 dias",
                     CONCAT('R$', i.precovendido) "Preço vendido",
                     CASE WHEN (i.precovendido > avg(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
@@ -68,11 +76,11 @@ def busca_media_precos():
 def envia_email(mensagem):
     msg = email.message.Message()
 
-    msg['From'] = 'vitor.lehnen@universo.univates.br'
-    msg['To'] = 'vitorlehnen.jojo@gmail.com'
+    msg['From'] = 'vitorlehnen.jojo@gmail.com'
+    msg['To'] = 'vitor.lehnen@universo.univates.br'
     msg['Subject'] = 'Preços ' + str(datetime.now().date())
 
-    senha = 'ecbzattdneovdoqj'
+    senha = 'aehrrdvynovudool'
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(mensagem)
 
