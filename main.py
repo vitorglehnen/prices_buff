@@ -48,21 +48,17 @@ def busca_media_precos():
                     CONCAT('R$', (SELECT max(hp3.preco)
                     FROM historicoprecos hp3
                     WHERE hp3.datacons = CURRENT_DATE - INTERVAL '1 day' and hp3.coditem = hp.coditem
-                    GROUP BY hp3.coditem)) "Preço ontem",
-                    CONCAT('R$', (SELECT max(hp2.preco)
-                    FROM historicoprecos hp2
-                    WHERE hp2.datacons = CURRENT_DATE and hp2.coditem = hp.coditem
-                    GROUP BY hp2.coditem)) "Preço hoje",
-                    CONCAT('R$', ROUND(avg(hp.preco), 2)) "Média últimos 3 dias",
-                    CONCAT('R$', i.precovendido) "Preço vendido",
-                    CASE WHEN (i.precovendido > avg(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
-                    WHEN (i.precovendido < avg(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
+                    GROUP BY hp3.coditem)) "Preço ontem",  
+                    CONCAT('R$', max(hp.preco)) "Preço hoje",
+                    CONCAT('R$', i.precovendido) "Preço comprado",
+                    CASE WHEN (i.precovendido > avg(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
+                    WHEN (i.precovendido < avg(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
                     end as "Percentual"
                     FROM historicoprecos hp
                     INNER JOIN item i on i.coditem = hp.coditem
-                    WHERE hp.datacons BETWEEN (CURRENT_DATE - 3) and CURRENT_DATE
+                    WHERE hp.datacons = CURRENT_DATE
                     GROUP BY hp.coditem, i.coditem
-                    ORDER BY ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)''')
+                    ORDER BY ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2) ASC''')
 
     result = query.fetchall()
     df = pd.DataFrame(result, columns=[desc[0] for desc in query.description])
