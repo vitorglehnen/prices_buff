@@ -51,14 +51,15 @@ def busca_media_precos():
                     GROUP BY hp3.coditem)) "Preço ontem",  
                     CONCAT('R$', max(hp.preco)) "Preço hoje",
                     CONCAT('R$', i.precovendido) "Preço comprado",
-                    CASE WHEN (i.precovendido > avg(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
-                    WHEN (i.precovendido < avg(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
-                    end as "Percentual"
+                    COALESCE((CASE WHEN (i.precovendido > max(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((max(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
+                    WHEN (i.precovendido < max(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((max(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
+                    END), '   0.00%') "Percentual"
                     FROM historicoprecos hp
                     INNER JOIN item i on i.coditem = hp.coditem
                     WHERE hp.datacons = CURRENT_DATE
                     GROUP BY hp.coditem, i.coditem
-                    ORDER BY ROUND(((avg(hp.preco) - i.precovendido) / i.precovendido) * 100, 2) ASC''')
+                    ORDER BY ROUND(((max(hp.preco) - i.precovendido) / i.precovendido) * 100, 2) DESC
+                    ''')
 
     result = query.fetchall()
     df = pd.DataFrame(result, columns=[desc[0] for desc in query.description])
