@@ -5,12 +5,14 @@ import email.message
 import pandas as pd
 import requests
 import smtplib
+from datetime import date
 
+data_hoje = date.today().strftime('%d-%m-%Y')
 
 def conexao_db():
     parametros = {
         "host": "localhost",
-        "database": "postgres",
+        "database": "pricesbuff",
         "user": "postgres",
         "password": "postgres"}
 
@@ -39,31 +41,48 @@ def busca_tabela_item():
 
     return result
 
+def busca_valor_total():
+    conexao = conexao_db()
+    query = conexao.cursor()
+
+    query.execute(f'''select sum(valor_total)
+                    from (select i.quantidade * max(h.preco) as valor_total
+    	            from item i 
+    	            inner join historicoprecos h on h.coditem = i.coditem and h.datacons = '{data_hoje}'
+    	            group by h.coditem,i.coditem) sub''')
+
+    valor_total = query.fetchone()
+    query.close()
+    conexao.close()
+
+    return valor_total
+
 
 def busca_media_precos():
     conexao = conexao_db()
     query = conexao.cursor()
 
-    query.execute('''SELECT i.descricao "Item",
+    query.execute(f'''SELECT i.descricao "Item",
                     CONCAT('R$', (SELECT max(hp3.preco)
                     FROM historicoprecos hp3
                     WHERE hp3.datacons = CURRENT_DATE - INTERVAL '1 day' and hp3.coditem = hp.coditem
                     GROUP BY hp3.coditem)) "Preço ontem",  
                     CONCAT('R$', max(hp.preco)) "Preço hoje",
-                    CONCAT('R$', i.precovendido) "Preço comprado",
-                    COALESCE((CASE WHEN (i.precovendido > max(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((max(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
-                    WHEN (i.precovendido < max(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((max(hp.preco) - i.precovendido) / i.precovendido) * 100, 2)), '%')
-                    END), '   0.00%') "Percentual"
+                    CONCAT('R$', i.preco) "Preço comprado",
+                    COALESCE((CASE WHEN (i.preco > max(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2)), '%')
+                    WHEN (i.preco < max(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2)), '%')
+                    END), '   0.00%') "Percentual",
+					i.quantidade "Qtde",
+					'R$' || (i.quantidade * max(hp.preco)) "Valor total"
                     FROM historicoprecos hp
                     INNER JOIN item i on i.coditem = hp.coditem
-                    WHERE hp.datacons = CURRENT_DATE
+                    WHERE hp.datacons = date('{data_hoje}')
                     GROUP BY hp.coditem, i.coditem
-                    ORDER BY ROUND(((max(hp.preco) - i.precovendido) / i.precovendido) * 100, 2) DESC
+                    ORDER BY ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2) DESC
                     ''')
 
     result = query.fetchall()
     df = pd.DataFrame(result, columns=[desc[0] for desc in query.description])
-
     query.close()
     conexao.close()
 
@@ -115,7 +134,8 @@ string = tabulate(busca_media_precos(),
                   tablefmt='html',
                   showindex=False,
                   stralign='left',
-                  colalign=('left', ))
+                  colalign=('left',))
 
-envia_email(string)
+envia_email(string + '\n\n' + 'Valor total: R$' + str(busca_valor_total()[0]))
+
 print("Email enviado!")

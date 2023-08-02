@@ -14,12 +14,12 @@ Types if import:
 IMPORTANT: Do NOT post this list to the issue-tracker. Use it as a basis for
             tracking down the missing module yourself. Thanks!
 
-missing module named pyimod02_importers - imported by C:\Users\vitor\Python projects\prices_buff\venv\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgutil.py (delayed), C:\Users\vitor\Python projects\prices_buff\venv\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgres.py (delayed)
+missing module named pyimod02_importers - imported by C:\Projects\prices_buff\venv\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgutil.py (delayed), C:\Projects\prices_buff\venv\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgres.py (delayed)
 missing module named _posixsubprocess - imported by subprocess (optional), multiprocessing.util (delayed)
 missing module named grp - imported by shutil (optional), tarfile (optional), pathlib (delayed, optional), subprocess (optional)
 missing module named pwd - imported by posixpath (delayed, conditional), shutil (optional), tarfile (optional), pathlib (delayed, conditional, optional), subprocess (optional), netrc (delayed, conditional), getpass (delayed), http.server (delayed, optional), webbrowser (delayed)
-missing module named 'org.python' - imported by pickle (optional), xml.sax (delayed, conditional)
-missing module named org - imported by copy (optional)
+missing module named org - imported by pickle (optional)
+missing module named 'org.python' - imported by copy (optional), xml.sax (delayed, conditional)
 missing module named posix - imported by os (conditional, optional), shutil (conditional), importlib._bootstrap_external (conditional)
 missing module named resource - imported by posix (top-level)
 missing module named _manylinux - imported by pkg_resources._vendor.packaging._manylinux (delayed, optional), packaging._manylinux (delayed, optional)
