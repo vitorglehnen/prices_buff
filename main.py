@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from tabulate import tabulate
 import psycopg2 as db
 import email.message
@@ -7,6 +7,7 @@ import requests
 import smtplib
 from datetime import date
 
+data_ontem = date.today() - timedelta(days=1)
 data_hoje = date.today().strftime('%d-%m-%Y')
 
 def conexao_db():
@@ -63,23 +64,22 @@ def busca_media_precos():
     query = conexao.cursor()
 
     query.execute(f'''SELECT i.descricao "Item",
-                    CONCAT('R$', (SELECT max(hp3.preco)
-                    FROM historicoprecos hp3
-                    WHERE hp3.datacons = CURRENT_DATE - INTERVAL '1 day' and hp3.coditem = hp.coditem
-                    GROUP BY hp3.coditem)) "Preço ontem",  
-                    CONCAT('R$', max(hp.preco)) "Preço hoje",
-                    CONCAT('R$', i.preco) "Preço comprado",
-                    COALESCE((CASE WHEN (i.preco > max(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2)), '%')
-                    WHEN (i.preco < max(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2)), '%')
-                    END), '   0.00%') "Percentual",
-					i.quantidade "Qtde",
-					'R$' || (i.quantidade * max(hp.preco)) "Valor total"
-                    FROM historicoprecos hp
-                    INNER JOIN item i on i.coditem = hp.coditem
-                    WHERE hp.datacons = date('{data_hoje}')
-                    GROUP BY hp.coditem, i.coditem
-                    ORDER BY ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2) DESC
-                    ''')
+       CONCAT('R$', max(hp.preco)) "Preço hoje",
+       CONCAT('R$', i.preco) "Preço comprado",
+       COALESCE((CASE WHEN (i.preco > max(hp.preco)) THEN CONCAT('- ', ABS(ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2)), '%')
+       WHEN (i.preco < max(hp.preco)) THEN CONCAT('+ ', ABS(ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2)), '%')
+       END), '   0.00%') "Percentual",
+		i.quantidade "Qtde",
+		'R$' || (i.quantidade * max(hp.preco)) "Valor total"
+       FROM historicoprecos hp
+       INNER JOIN item i on i.coditem = hp.coditem
+       WHERE hp.datacons = '{data_hoje}' and hp.horacons = (SELECT max(hp1.horacons) 
+															FROM historicoprecos hp1
+															WHERE hp1.datacons = '{data_hoje}' and
+															hp1.coditem = hp.coditem)
+       GROUP BY hp.coditem, i.coditem
+       ORDER BY ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2) DESC
+        ''')
 
     result = query.fetchall()
     df = pd.DataFrame(result, columns=[desc[0] for desc in query.description])
