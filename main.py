@@ -24,7 +24,7 @@ def conexao_db():
 
 def busca_preco_api(item):
     api = requests.get(
-        f'https://buff.163.com/api/market/goods/buy_order?game=csgo&goods_id={item}&page_num=1').json()
+        f'https://buff.163.com/api/market/goods/sell_order?game=csgo&goods_id={item}&page_num=1&sort_by=default&mode=&allow_tradable_cooldown=1&_=1691347901651').json()
 
     for price in api['data']['items']:
         return float(price['price'])
