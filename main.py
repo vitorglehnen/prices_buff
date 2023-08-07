@@ -1,14 +1,14 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from tabulate import tabulate
 import psycopg2 as db
 import email.message
 import pandas as pd
 import requests
 import smtplib
-from datetime import date
 
 data_ontem = date.today() - timedelta(days=1)
 data_hoje = date.today().strftime('%d-%m-%Y')
+
 
 def conexao_db():
     parametros = {
@@ -41,6 +41,7 @@ def busca_tabela_item():
     conexao.close()
 
     return result
+
 
 def busca_valor_total():
     conexao = conexao_db()
@@ -87,6 +88,13 @@ def busca_media_precos():
     conexao.close()
 
     return df
+
+
+def busca_valor_bitcoin():
+    req_bitcoin = requests.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl').json()
+    print()
+
+    return req_bitcoin['bitcoin']['brl']
 
 
 def envia_email(mensagem):
@@ -136,6 +144,8 @@ string = tabulate(busca_media_precos(),
                   stralign='left',
                   colalign=('left',))
 
-envia_email(string + '\n\n' + 'Valor total: R$' + str(busca_valor_total()[0]))
+envia_email(string + '\n\n' +
+            'Valor total: R$' + str(busca_valor_total()[0]) + '\n\n' +
+            'Valor bitcoin: R$' + str(busca_valor_bitcoin()))
 
 print("Email enviado!")
