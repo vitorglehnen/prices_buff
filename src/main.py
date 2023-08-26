@@ -1,9 +1,9 @@
+from src.connection.connect import Connection
+from src.models.email import Email
 from datetime import datetime
 from tabulate import tabulate
 import pandas as pd
 import requests
-import emails
-import params
 
 
 def busca_preco_api(item):
@@ -14,21 +14,12 @@ def busca_preco_api(item):
         return float(price['price'])
 
 
-def busca_tabela_item():
-    conexao = params.conexao_db()
-    query = conexao.cursor()
-
-    query.execute('SELECT coditem FROM item')
-    result = query.fetchall()
-
-    query.close()
-    conexao.close()
-
-    return result
-
-
 def busca_valor_total():
-    conexao = params.conexao_db()
+    conexao_object = Connection()
+
+    conexao = conexao_object.conexao_db()
+
+
     query = conexao.cursor()
 
     query.execute(f'''select sum(valor_total)
@@ -45,7 +36,9 @@ def busca_valor_total():
 
 
 def busca_media_precos():
-    conexao = params.conexao_db()
+    conexao_object = Connection()
+    conexao = conexao_object.conexao_db()
+
     query = conexao.cursor()
 
     query.execute(f'''
@@ -93,7 +86,9 @@ for coditem, preco in lista_itens:
     data_agora = str(datetime.now().date().strftime('%d/%m/%Y'))
     hora_agora = str(datetime.now().time().strftime('%H:%M:%S'))
 
-    conexao = params.conexao_db()
+    conexao_object = Connection()
+    conexao = conexao_object.conexao_db()
+
     query = conexao.cursor()
 
     query.execute(f"INSERT INTO historicoprecos(controle, coditem, preco)"
@@ -103,14 +98,13 @@ for coditem, preco in lista_itens:
     query.close()
     conexao.close()
 
-string = tabulate(busca_media_precos(),
+mensagem = 'Preços do dia: ' + str(datetime.now().date()) + tabulate(busca_media_precos(),
                   headers='keys',
                   tablefmt='html',
                   showindex=False,
                   stralign='left',
-                  colalign=('left',))
+                  colalign=('left',) + '\n\n' + 'Valor total: R$' + str(busca_valor_total()[0]) + '\n\n' + 'Valor bitcoin: R$' + str(busca_valor_bitcoin()))
 
-emails.envia_email('Preços do dia: ' + str(datetime.now().date()),
-                    (string + '\n\n' + 'Valor total: R$' + str(busca_valor_total()[0]) + '\n\n' + 'Valor bitcoin: R$' + str(busca_valor_bitcoin())))
+Email.envia_email(mensagem)
 
 print("Email enviado!")
