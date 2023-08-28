@@ -1,34 +1,21 @@
-from exceptions.connectiondb import ConnectionDatabaseException
-import configparser
 import psycopg2 as db
-import sys
+import json
 import os
 
 
 class Connection:
     def __init__(self):
-        caminho_exe = os.path.abspath(sys.argv[0])
-        self.caminho_parameters_ini = os.path.dirname(caminho_exe) + r"\parameters.ini"
-
-    def cria_parameters_ini(self):
-        ini = configparser.ConfigParser()
-        ini.read(self.caminho_parameters_ini)
-
-        return ini
+        with open('parameters.json', 'r') as file:
+            self.dados = json.load(file)
 
     def conexao_db(self):
-        ini = self.cria_parameters_ini()
-
         parametros = {
-            "host": ini.get('DATABASE', 'Server'),
-            "database": ini.get('DATABASE', 'DatabaseName'),
-            "user": ini.get('DATABASE', 'User'),
-            "password": ini.get('DATABASE', 'Password')}
+            "host": self.dados['database'][0]['server'],
+            "database": self.dados['database'][0]['dbname'],
+            "user": self.dados['database'][0]['user'],
+            "password": self.dados['database'][0]['password'],
+            "port": self.dados['database'][0]['port']}
 
         conexao = db.connect(**parametros)
 
         return conexao
-
-
-
-
