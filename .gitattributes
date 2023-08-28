@@ -1,1 +1,1 @@
-build/main/* linguist-vendored
+*.html linguist-language=Python
