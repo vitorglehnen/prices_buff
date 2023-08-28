@@ -51,7 +51,8 @@ class Item:
 	  													FROM historicoprecos h2
 	  													WHERE h2.datacons = CURRENT_DATE AND 
 													  	h2.coditem = i.coditem)
-        GROUP BY h.coditem,i.coditem) SUB
+                WHERE i.inativo = 'N'													  	
+                GROUP BY h.coditem,i.coditem) SUB
         
 	    """
 
@@ -91,6 +92,7 @@ class Item:
 															FROM historicoprecos hp1
 															WHERE hp1.datacons = CURRENT_DATE and
 															hp1.coditem = hp.coditem)
+            AND i.inativo = 'N'															
        GROUP BY hp.coditem, i.coditem
        ORDER BY ROUND(((max(hp.preco) - i.preco) / i.preco) * 100, 2) DESC
         
@@ -102,4 +104,20 @@ class Item:
 
         return result
 
+    @property
+    def get_total_pago_itens(self):
+        sql = f"""
+                
+                SELECT SUM(valor) AS valor_total
+                FROM (SELECT (i.quantidade*preco) AS valor
+                        FROM item i
+                        WHERE i.inativo = 'N') SUB
+                
+                """
+
+        self.query.execute(sql)
+
+        result = self.query.fetchone()
+
+        return result[0]
 

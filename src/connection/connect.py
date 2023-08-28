@@ -5,7 +5,7 @@ import os
 
 class Connection:
     def __init__(self):
-        with open('../../parameters.json', 'r') as file:
+        with open('parameters.json', 'r') as file:
             self.dados = json.load(file)
 
     def conexao_db(self):

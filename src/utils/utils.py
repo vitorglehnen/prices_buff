@@ -4,7 +4,7 @@ import os
 
 class Utils:
     @staticmethod
-    def cria_parameters_json():
+    def retorna_parameters_json():
         if not os.path.exists('parameters.json'):
             dados = {
                 "database": [
@@ -27,3 +27,8 @@ class Utils:
 
             with open('parameters.json', 'w') as file:
                 json.dump(dados, file, indent=2)
+
+        with open('parameters.json', 'r') as file:
+            parameters = json.load(file)
+
+        return parameters

@@ -49,55 +49,43 @@
   ('main',
    'C:\\Users\\vitor\\Python projects\\prices_buff\\main.py',
    'PYSOURCE'),
-  ('api-ms-win-crt-locale-l1-1-0.dll',
+  ('api-ms-win-crt-heap-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-locale-l1-1-0.dll',
-   'BINARY'),
-  ('VCRUNTIME140.dll',
-   'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\VCRUNTIME140.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-heap-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-runtime-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-runtime-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-heap-l1-1-0.dll',
+  ('api-ms-win-crt-locale-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-heap-l1-1-0.dll',
-   'BINARY'),
-  ('python39.dll',
-   'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\python39.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-locale-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-math-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-math-l1-1-0.dll',
    'BINARY'),
+  ('VCRUNTIME140.dll',
+   'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\VCRUNTIME140.dll',
+   'BINARY'),
   ('api-ms-win-crt-stdio-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-stdio-l1-1-0.dll',
+   'BINARY'),
+  ('python39.dll',
+   'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\python39.dll',
    'BINARY'),
   ('ucrtbase.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\ucrtbase.dll',
    'BINARY'),
-  ('api-ms-win-crt-convert-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-convert-l1-1-0.dll',
-   'BINARY'),
   ('api-ms-win-crt-string-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-string-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-crt-process-l1-1-0.dll',
+  ('api-ms-win-crt-convert-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-process-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-filesystem-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-filesystem-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-crt-time-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-time-l1-1-0.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-convert-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-crt-environment-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
@@ -107,9 +95,33 @@
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-conio-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-core-memory-l1-1-0.dll',
+  ('api-ms-win-crt-process-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-memory-l1-1-0.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-process-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-time-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-time-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-crt-filesystem-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-crt-filesystem-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-libraryloader-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-libraryloader-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-synch-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processenvironment-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-processenvironment-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-namedpipe-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-namedpipe-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-core-sysinfo-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
@@ -119,41 +131,17 @@
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-timezone-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-core-string-l1-1-0.dll',
+  ('api-ms-win-core-handle-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-string-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-heap-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-heap-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-interlocked-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-interlocked-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-processthreads-l1-1-1.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-processthreads-l1-1-1.dll',
-   'BINARY'),
-  ('api-ms-win-core-errorhandling-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-errorhandling-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-synch-l1-2-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-synch-l1-2-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-libraryloader-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-libraryloader-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-processenvironment-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-processenvironment-l1-1-0.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-handle-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-core-rtlsupport-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-rtlsupport-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-debug-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-debug-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-core-file-l1-2-0.dll',
    'C:\\Program Files\\Eclipse '
@@ -163,49 +151,61 @@
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-localization-l1-2-0.dll',
    'BINARY'),
-  ('api-ms-win-core-synch-l1-1-0.dll',
+  ('api-ms-win-core-errorhandling-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-synch-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-namedpipe-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-namedpipe-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-console-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-console-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-util-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-util-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-debug-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-debug-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-processthreads-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-processthreads-l1-1-0.dll',
-   'BINARY'),
-  ('api-ms-win-core-profile-l1-1-0.dll',
-   'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-profile-l1-1-0.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-errorhandling-l1-1-0.dll',
    'BINARY'),
   ('api-ms-win-core-file-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-file-l1-1-0.dll',
    'BINARY'),
+  ('api-ms-win-core-file-l2-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-file-l2-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-util-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-util-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-string-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-string-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-heap-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-heap-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-profile-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-profile-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-processthreads-l1-1-1.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-processthreads-l1-1-1.dll',
+   'BINARY'),
+  ('api-ms-win-core-console-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-console-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-memory-l1-1-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-memory-l1-1-0.dll',
+   'BINARY'),
+  ('api-ms-win-core-synch-l1-2-0.dll',
+   'C:\\Program Files\\Eclipse '
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-synch-l1-2-0.dll',
+   'BINARY'),
   ('api-ms-win-core-datetime-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
    'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-datetime-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-core-handle-l1-1-0.dll',
+  ('api-ms-win-core-interlocked-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-handle-l1-1-0.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-interlocked-l1-1-0.dll',
    'BINARY'),
-  ('api-ms-win-core-file-l2-1-0.dll',
+  ('api-ms-win-core-processthreads-l1-1-0.dll',
    'C:\\Program Files\\Eclipse '
-   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-file-l2-1-0.dll',
+   'Adoptium\\jdk-17.0.8.7-hotspot\\bin\\api-ms-win-core-processthreads-l1-1-0.dll',
    'BINARY'),
   ('_decimal.pyd',
    'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\DLLs\\_decimal.pyd',
@@ -225,11 +225,11 @@
   ('_socket.pyd',
    'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\DLLs\\_socket.pyd',
    'EXTENSION'),
-  ('unicodedata.pyd',
-   'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\DLLs\\unicodedata.pyd',
-   'EXTENSION'),
   ('_ssl.pyd',
    'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\DLLs\\_ssl.pyd',
+   'EXTENSION'),
+  ('unicodedata.pyd',
+   'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\DLLs\\unicodedata.pyd',
    'EXTENSION'),
   ('_queue.pyd',
    'C:\\Users\\vitor\\AppData\\Local\\Programs\\Python\\Python39\\DLLs\\_queue.pyd',
@@ -263,18 +263,18 @@
    'C:\\Users\\vitor\\Python '
    'projects\\prices_buff\\build\\main\\base_library.zip',
    'DATA'),
-  ('certifi\\py.typed',
-   'C:\\Users\\vitor\\Python '
-   'projects\\prices_buff\\venv\\lib\\site-packages\\certifi\\py.typed',
-   'DATA'),
   ('certifi\\cacert.pem',
    'C:\\Users\\vitor\\Python '
    'projects\\prices_buff\\venv\\lib\\site-packages\\certifi\\cacert.pem',
+   'DATA'),
+  ('certifi\\py.typed',
+   'C:\\Users\\vitor\\Python '
+   'projects\\prices_buff\\venv\\lib\\site-packages\\certifi\\py.typed',
    'DATA')],
  [],
  False,
  False,
- 1693187283,
+ 1693195530,
  [('run.exe',
    'C:\\Users\\vitor\\Python '
    'projects\\prices_buff\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
