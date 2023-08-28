@@ -25,8 +25,11 @@ mensagem_email = f"""
                     <br>
                     <b>Valor total pago nos itens:</b> R${valor_total_pago}
                     <br>
+                    <br>
+                    <b>Lucro:</b> R${valor_total - valor_total_pago}
                     <br>     
-                    <b>Preço do bitcoin:</b> R${preco_bitcoin}                
+                    <br>
+                    <b>Preço do bitcoin:</b> R${preco_bitcoin} 
                     """
 
 Email.envia_email(remetente=parameters_email['email'][0]['endereco_remetente'],
