@@ -5,6 +5,8 @@ import os
 
 
 class Utils:
+
+    # Retorna os dados do arquivo parameters.json, caso não exista, cria um novo
     @staticmethod
     def retorna_parameters_json():
         if not os.path.exists('parameters.json'):
@@ -36,6 +38,7 @@ class Utils:
         return parameters
 
 
+    # Gera um log de erro, com a data e hora do erro, a função que ocorreu o erro e o erro em si
     @staticmethod
     def gera_log_erro(titulo, erro, funcao):
         nome_arquivo = f'log-{datetime.datetime.now().date()}.txt'
@@ -44,7 +47,7 @@ class Utils:
         with open(nome_arquivo, 'a') as file:
             file.write(f'Data:{datetime.datetime.now().date()} Hora:{datetime.datetime.now().time().strftime("%H:%M:%S")}')
             file.write('\n')
-            file.write('Erro na função:' + funcao)
+            file.write('Erro na função: ' + funcao)
             file.write('\n\n')
             file.write(erro)
             file.write('\n')
@@ -52,10 +55,11 @@ class Utils:
             file.write('\n')
 
         print(titulo + ' Log gerado em: ' + caminho_exe + '\\' + nome_arquivo)
+        input()
 
         exit()
 
-
+    # Retorna o diretório do executável ou do script Python
     @staticmethod
     def get_diretorio_exe():
         if getattr(sys, 'frozen', False):

@@ -1,9 +1,8 @@
-from src.exceptions.customexceptions import ConnectionDatabaseException
 from src.utils.utils import *
 import psycopg2 as db
 import json
-import os
 import sys
+import os
 
 
 class Connection:

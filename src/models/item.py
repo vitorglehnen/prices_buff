@@ -1,6 +1,5 @@
-from src.exceptions.customexceptions import *
-from src.utils.utils import *
 from src.connection.connect import Connection
+from src.utils.utils import *
 import requests
 
 class Item:

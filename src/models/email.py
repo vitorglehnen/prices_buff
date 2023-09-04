@@ -6,6 +6,7 @@ import smtplib
 
 class Email:
 
+    # Envia um email com os dados passados
     @staticmethod
     def envia_email(remetente, destinatario, senha, titulo, mensagem):
         try:
