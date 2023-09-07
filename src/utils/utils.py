@@ -41,8 +41,7 @@ class Utils:
     # Gera um log de erro, com a data e hora do erro, a função que ocorreu o erro e o erro em si
     @staticmethod
     def gera_log_erro(titulo, erro, funcao):
-        nome_arquivo = f'log-{datetime.datetime.now().date()}.txt'
-        caminho_exe = os.path.dirname(os.path.abspath(__file__))
+        nome_arquivo = f'{Utils.get_diretorio_exe()}log-{datetime.datetime.now().date()}.txt'
 
         with open(nome_arquivo, 'a') as file:
             file.write(f'Data:{datetime.datetime.now().date()} Hora:{datetime.datetime.now().time().strftime("%H:%M:%S")}')
@@ -54,7 +53,7 @@ class Utils:
             file.write('----------------------------------------------------------------------------------------')
             file.write('\n')
 
-        print(titulo + ' Log gerado em: ' + caminho_exe + '\\' + nome_arquivo)
+        print(titulo + ' Log gerado em: ' + nome_arquivo)
         input()
 
         exit()
@@ -64,7 +63,7 @@ class Utils:
     def get_diretorio_exe():
         if getattr(sys, 'frozen', False):
             # Quando o código está sendo executado a partir de um executável (EXE)
-            return os.path.dirname(sys.executable)
+            return os.path.dirname(sys.executable) + '\\'
         else:
             # Quando o código é executado como um script Python
-            return os.path.dirname(os.path.abspath(__file__))
+            return os.path.dirname(os.path.abspath(__file__)) + '\\'
