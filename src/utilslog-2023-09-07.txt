@@ -1,6 +1,0 @@
-Data:2023-09-07 Hora:17:00:28
-Erro na função: conexao_db
-
-connection to server at "localhost" (::1), port 5432 failed: fe_sendauth: no password supplied
-
-----------------------------------------------------------------------------------------
