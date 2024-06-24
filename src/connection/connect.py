@@ -2,7 +2,6 @@ from src.utils.utils import *
 import psycopg2 as db
 import json
 import sys
-import os
 
 
 class Connection:
@@ -25,8 +24,8 @@ class Connection:
         try:
             conexao = db.connect(**parametros)
         except Exception as e:
-            Utils.gera_log_erro("Erro ao conectar ao banco de dados! Log gerado em: ", str(e),
-                                sys._getframe().f_code.co_name)
+            Utils.gera_log_erro("Erro ao conectar ao banco de dados! Log gerado em: ", str(e), sys._getframe().f_code.co_name)
+            sys.exit(0)
 
         return conexao
 

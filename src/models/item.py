@@ -2,6 +2,7 @@ from src.connection.connect import Connection
 from src.utils.utils import *
 import requests
 
+
 class Item:
     def __init__(self):
         self.conexao_instance = Connection()

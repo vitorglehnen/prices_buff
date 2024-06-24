@@ -1,4 +1,3 @@
-from src.models.bitcoin import Bitcoin
 from src.models.email import Email
 from src.utils.utils import Utils
 from src.models.item import Item
@@ -12,8 +11,6 @@ class Main:
 
         itens = item_instance.get_codigo_itens
         precos = item_instance.get_prices_buff163(itens)
-
-        preco_bitcoin = Bitcoin.get_price()
 
         valor_total_pago = item_instance.get_total_pago_itens
         item_instance.insert_historico_precos(precos)
@@ -31,9 +28,6 @@ class Main:
                                 <br>
                                 <br>
                                 <b>Lucro:</b> R${valor_total - valor_total_pago}
-                                <br>     
-                                <br>
-                                <b>Preço do bitcoin:</b> R${preco_bitcoin} 
                             """
 
         Email.envia_email(remetente=parameters_json['email'][0]['endereco_remetente'],
