@@ -1,6 +1,6 @@
-from src.models.email import Email
+from src.models.entities.email import Email
 from src.utils.utils import Utils
-from src.models.item import Item
+from src.models.dao.item import Item
 from tabulate import tabulate
 
 

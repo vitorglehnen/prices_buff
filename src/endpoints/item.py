@@ -1,118 +1,80 @@
 from flask import jsonify, request, Blueprint, make_response
-from src.connection.connect import Connection
+from src.models.dao.item import ItemDao
+from src.models.entities.item import Item
 
-
-conexao = Connection().cursor()
-cursor_sql = conexao.cursor()
+item_dao = ItemDao()
 item = Blueprint('item', __name__)
 
 
-@item.route('/itens/incluir', methods=['POST'])
-def itens_incluir():
-    codigo = request.json['codbuff']
-    nome = request.json['nome']
-    preco = request.json['preco']
-    quantidade = request.json['quantidade']
+@item.route('/itens/inserir', methods=['POST'])
+def itens_inserir():
+    item = Item(request.json['codigo'], request.json['descricao'], request.json['preco'], request.json['quantidade'], request.json['inativo'])
 
-    if codigo == '':
-        response = {"response": "O valor de codbuff não pode estar vazio!"}
-
-        return jsonify(response['response'])
-
-    cursor_sql.execute(f"""
-                    INSERT INTO public.item(coditem, descricao, preco, quantidade, inativo)
-	                VALUES ({codigo},'{nome}', {preco}, {quantidade}, 'N')
-                    """)
-
-    conexao.commit()
-    cursor_sql.close()
+    item_dao.inserir(item)
 
     return jsonify('Item inserido com sucesso!')
 
 
-@item.route('/itens/consultarCodigo/<codigo>', methods=['GET'])
+@item.route('/itens/consultar/<codigo>', methods=['GET'])
 def busca_item(codigo):
-    cursor_sql.execute(f"""
-                    SELECT i.coditem, i.descricao, i.preco, i.quantidade, i.inativo
-                    FROM public.item i
-                    WHERE i.coditem = {codigo}
-                    """)
+    item = Item(codigo, None, None, None, None)
 
-    dataset = cursor_sql.fetchall()
-    cursor_sql.close()
+    item_return = item_dao.buscar(item)
 
-    if len(dataset) == 0:
+    if item_return.codigo is None:
         return jsonify("Código de produto inexistente na base de dados!")
 
     response = {
-        'codigo': dataset[0][0],
-        'descricao': dataset[0][1],
-        'preco': dataset[0][2],
-        'quantidade': dataset[0][3],
-        'inativo': dataset[0][4]
-    }
-
-    return jsonify(response)
-
-
-@item.route('/itens/consultar', methods=['GET'])
-def busca_todos_itens():
-    cursor = conexao.cursor()
-
-    cursor.execute(f"""
-                    SELECT i.coditem, i.descricao, i.preco, i.quantidade, i.inativo
-                    FROM item i
-                    """)
-
-    dataset = cursor.fetchall()
-    cursor.close()
-
-    if len(dataset) == 0:
-        return jsonify("Nenhum produto existente na base de dados!")
-
-    produtos = []
-
-    for registro in dataset:
-        produtos.append({
-            'codigo': registro[0],
-            'descricao': registro[1],
-            'preco': registro[2],
-            'quantidade': registro[3],
-            'inativo': registro[4]
-        })
-        
-    response = {
-        'produtos': produtos
+        'produtos': [{
+            'codigo': item_return.codigo,
+            'descricao': item_return.descricao,
+            'preco': item_return.preco,
+            'quantidade': item_return.quantidade,
+            'inativo': item_return.inativo
+        }]
     }
 
     return make_response(jsonify(response), 200)
 
 
-@item.route('/itens/alterar/<codigo>', methods=['PUT'])
-def altera_item(codigo):
-    dados = request.get_json()
+@item.route('/itens/consultar', methods=['GET'])
+def busca_todos_itens():
+    itens = item_dao.buscar_todos()
 
-    cursor_sql.execute(f"""
-                    UPDATE item SET
-                    descricao = '{dados['descricao']}',
-                    quantidade = {dados['quantidade']},
-                    preco = {dados['preco']},
-                    inativo = '{dados['inativo']}'
-                    WHERE coditem = {codigo}                  
-                   """)
+    if len(itens) == 0:
+        return jsonify("Nenhum produto existente na base de dados!")
 
-    conexao.commit()
+    itens_json = []
+    for registro in itens:
+        itens_json.append({
+            'codigo': registro.codigo,
+            'descricao': registro.descricao,
+            'preco': registro.preco,
+            'quantidade': registro.quantidade,
+            'inativo': registro.inativo
+        })
+
+    response = {
+        'produtos': itens_json
+    }
+
+    return make_response(jsonify(response), 200)
+
+
+@item.route('/itens/atualizar/<codigo>', methods=['PUT'])
+def atualiza_item(codigo):
+    req = request.get_json()
+    item = Item(codigo, req['descricao'], req['preco'], req['quantidade'], req['inativo'])
+
+    item_dao.atualizar(item)
 
     return jsonify('Registro alterado com sucesso!')
 
 
 @item.route('/itens/excluir/<codigo>', methods=['DELETE'])
 def deleta_item(codigo):
-    cursor_sql.execute(f"""
-                    DELETE FROM item
-                    WHERE coditem = {codigo}                 
-                   """)
+    item = Item(codigo, None, None, None, None)
 
-    conexao.commit()
+    item_dao.deletar(item)
 
     return jsonify('Item excluído com sucesso!')
